@@ -1,0 +1,496 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="description" content="Talk at HSDI, May 16th, 2019">
+		<meta name="author" content="Ariel Rokem">
+
+		<title> Training in the era of brain observatories </title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/arokem.css">
+		<link rel="stylesheet" href="css/custom.css">
+        <link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-1.1.0.min.css" type="text/css" />
+        <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-1.1.0.min.js"></script>
+
+        <script type="text/javascript">
+            Bokeh.set_log_level("info");
+        </script>
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<script>
+            function canvas_arrow_two_heads(context, fromx, fromy, tox, toy){
+                let headlen = 10;   // length of head in pixels
+                let angle = Math.atan2(toy-fromy,tox-fromx);
+                context.moveTo(fromx, fromy);
+                context.lineTo(fromx+headlen*Math.cos(angle+Math.PI/6),fromy+headlen*Math.sin(angle+Math.PI/6));
+                context.moveTo(fromx, fromy);
+                context.lineTo(fromx+headlen*Math.cos(angle-Math.PI/6),fromy+headlen*Math.sin(angle-Math.PI/6));
+                context.moveTo(fromx, fromy);
+                context.lineTo(tox, toy);
+                context.lineTo(tox-headlen*Math.cos(angle-Math.PI/6),toy-headlen*Math.sin(angle-Math.PI/6));
+                context.moveTo(tox, toy);
+                context.lineTo(tox-headlen*Math.cos(angle+Math.PI/6),toy-headlen*Math.sin(angle+Math.PI/6));}
+		</script>
+
+	</head>
+	<body>
+	<div class="reveal">
+	<div class="slides">
+
+	<section>
+		<em>
+		<h2> Neuroinformatics training </h2>
+        <h3>for </h3>
+        <h2>The era of brain observatories </h2>
+		</em>
+        <br>Neuro Informatics 2019, Warsaw
+		<br>
+		<p><a href="http://arokem.org">Ariel Rokem</a>,
+		<a href="http://escience.washington.edu">University of Washington eScience Institute</a> </p>
+		<p>  <small>Follow along at: <t><a href="https://arokem.github.io/2019-09-01-INCF/">https://arokem.github.io/2019-09-01-INCF</t></a></small></p>
+		<a href="https://escience.washington.edu"><img src="img/eScience.png" height="100px" alt="eScience logo" align="middle"></a>
+		<a href="https://compneuro.washington.edu/"><img src="img/cnc.png" height="100px" alt="CNC logo" align="middle"></a>
+		<a href="http://uwin.washington.edu/"><img src="img/uwin-logo.jpg" height="100px" alt="CNC logo" align="middle"></a>
+		<br>
+		<img src="img/cc-by.png" height="30px" alt="License" align="middle">
+    </section>
+
+    <!--
+    <section>
+        <h2>Data-driven discovery</h2>
+        <h3>"The fourth paradigm"</h3>
+    </section>
+
+    <section>
+     <h3>The paradigms of scientific discovery</h3>
+        <p class="fragment">
+            1. Empirical (experimental)
+        </p>
+    </section>
+
+    <section>
+
+        <h4>Example: Galileo Galilei's experiment (16th Century)</h4>
+
+        <img src="img/galileo.png" width="200px">
+        <img src="img/galileos-experiment.png">
+
+    </section>
+
+    <section>
+    <h3>The paradigms of scientific discovery</h3>
+    <p>
+        1. Empirical (experimental)
+    </p>
+    <p class="fragment">
+            2. Theoretical (mathematical)
+    </p>
+    </section>
+
+    <section>
+        <h4>Example: Maxwell's laws of electromagnetism (19th century)</h4>
+
+        <img src="img/maxwell.png" width="250px">
+        <img src="img/maxwells-laws.png">
+
+    </section>
+    <section>
+        <h3>The paradigms of scientific discovery</h3>
+        <p>
+            1. Empirical (experimental)
+        </p>
+        <p>
+            2. Theoretical (mathematical)
+        </p>
+
+            <p class="fragment">
+                3. Simulation (computational)
+            </p>
+        </section>
+
+        <section>
+            <h4>Example: Finite element simulations  </h4>
+            <img src="img/turbine-simulation.png" width="600px">
+        </section>
+    -->
+
+    <section>
+            <img src="img/eScience-infographic.png" height=400>
+            <!-- <p class="fragment"><img src="img/msdse-sponsors.png" height=100></p> -->
+            <p class="fragment">
+                Data science education
+            </p>
+            <p class="fragment">
+                Development of tools and practices for reproducible research
+            </p>
+            <p class="fragment">
+                Building a data science community: open, rigorous and ethical
+            </p>
+            <p class="fragment">
+                Data-driven research
+            </p>
+    </section>
+
+    <section>
+            <h3>Data-driven discovery</h3>
+            <div class="row">
+                    <div class="imgcite two-col">
+                        <div class="imghead">Sloan Digital Sky Survey</div>
+                        <img src="img/sdss.png" height="300" align="middle" alt="Image from Sloan Digital Sky Survey">
+                        <cite>
+                        By Donald Pelletier
+                        [<a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0 </a>],
+                        <a href="https://commons.wikimedia.org/wiki/File:NGC_1615.png">from Wikimedia Commons</a>
+                        </cite>
+                    </div>
+                    <div class="imgcite two-col">
+                        <div class="imghead">Large Hadron Collider</div>
+                        <img src="img/lhc.jpg" height="300" align="middle" alt="Large Hadron Collider">
+                        <cite>
+                        By <a href="http://cds.cern.ch/record/910381">Maximilien Brice</a>
+                        [<a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0 </a>],
+                        <a href="https://commons.wikimedia.org/wiki/File:Installing_the_ATLAS_Calorimeter.jpg">via Wikimedia Commons</a>
+                        </cite>
+                </div>
+            </div>
+        </section>
+
+    <section>
+        <h3>The paradigms of scientific discovery</h3>
+        <p>
+            1. Empirical (experimental)
+        </p>
+        <p>
+            2. Theoretical (mathematical)
+        </p>
+        <p>
+            3. Simulation (computational)
+        </p>
+        <div class="fragment">
+        <p>
+            4. Data-driven scientific discovery
+        </p>
+        <div >
+            <img src="img/jim-gray.png" align="middle" style="background:none; border:none; box-shadow:none;">
+            <br>
+            Jim Gray
+
+        </div>
+        <div style="position: absolute; top: 340px; left: 600px;">
+                <img src="img/fourth-paradigm.png" align="middle" style="background:none; border:none; box-shadow:none;" width="200px">
+                <br>
+        </div>
+        </div>
+    </section>
+
+    <section>
+            <h2>Data-driven discovery is affecting all fields!</h2>
+    </section>
+
+    <section>
+        <h4>Normal behavior is supported by brain networks</h4>
+        <img src="./img/OldenDays.png" height="470">
+        <div class="cite" style="position: absolute; left:600px;">
+            Image from <a href="https://www.ncbi.nlm.nih.gov/pubmed/16141282">Catani and ffytche (2015)</a>
+        </div>
+    </section>
+
+	<section>
+        <h4>Studying brain networks</h4>
+        <img src="./img/tract_groups.png" height="470">
+        <div class="cite" style="position: absolute; left:600px;">
+            Image from <a href="https://www.ncbi.nlm.nih.gov/pubmed/16141282">Catani and ffytche (2015)</a>
+        </div>
+    </section>
+
+    <section>
+        <h3>The era of brain observatories</h3>
+        <div class="row fragment fade-in">
+                <div class="col-13 textcol">
+                    <img class="logo" src="img/aibs-logo.png" width="200" align="middle" alt="" border="0">
+                </div>
+                <div class="textcol col-23">
+                    <ul>
+                    <p>
+                        Allen Institute for Brain Science<br>
+                    </p>
+                    </ul>
+                </div>
+                </div>
+
+        <div class="row fragment fade-in">
+            <div class="col-13 textcol">
+            <img class="logo" src="img/hcp-logo.jpg" width="200" align="middle" alt="Human Connectome Project logo" border="0">
+            </div>
+            <div class="textcol col-23">
+            <ul>
+                <p>
+                Human Connectome Project (HCP), N = 1,200
+                </p>
+            </ul>
+            </div>
+        </div>
+
+        <div class="row fragment fade-in">
+            <div class="col-13 textcol">
+            <img class="logo" src="img/child-mind-institute-hbn-logo.jpg" width="200" align="middle" alt="Healthy Brain Network logo">
+            </div>
+            <div class="textcol col-23">
+            <ul>
+                <p>
+                Healthy Brain Network (HBN),&nbsp; N = 10,000
+                </p>
+            </ul>
+            </div>
+        </div>
+        <div class="row fragment fade-in">
+            <div class="col-13 textcol">
+            <img class="logo" src="img/abcd-logo.png" width="300" align="middle" alt="Adolescent Brain Cognitive Development logo">
+            </div>
+            <div class="textcol col-23">
+            <ul>
+                <p>
+                Adolescent Brain Cognitive Development (ABCD), <br> N = 10,000
+                </p>
+            </ul>
+            </div>
+        </div>
+        <div class="row fragment fade-in">
+            <div class="col-13 textcol">
+            <img class="logo" src="img/biobank-logo.png" width="200" align="middle" alt="UK Biobank logo">
+            </div>
+            <div class="textcol col-23">
+            <ul>
+                <p>
+                UK Biobank, &nbsp; N = 500,000
+                </p>
+            </ul>
+            </div>
+        </div>
+    </section>
+
+
+    <section>
+		<h2>Opportunities</h2>
+        <p class="fragment">New data sets will enable important new discoveries</p>
+		<p class="fragment"><em>Data-driven discovery</em></p>
+    </section>
+
+
+    <section>
+    <h2>Challenges</h2>
+        <h3>Technical</h3>
+        <h3>Conceptual</h3>
+        <h3>Socio-technical</h3>
+    </section>
+
+    <section>
+        <h2>Socio-technical? </h2>
+    </section>
+
+    <section>
+        <h2>Open science</h2>
+        Open data is just one element of a larger picture
+    </section>
+
+    <section>
+        <h2>Open source software is a complement to </h2>
+    </section>
+
+    <section>
+
+
+        <div class="cite">
+
+        </div>
+    </section>
+
+    <section>
+
+    </section>
+
+    <section>
+        <div class="imgcite">
+        <img src="img/512px-MindTheGapVictoria.jpg">
+            <cite>
+            By <a href="https://commons.wikimedia.org/w/index.php?title=User:WillMcC&action=edit&redlink=1">WillMcC</a>
+                    [<a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0 </a>],
+                    <a href="https://commons.wikimedia.org/wiki/File:MindTheGapVictoria.jpg
+                    ">via Wikimedia Commons</a>
+            </cite>
+        </div>
+    </section>
+
+    <section>
+        <h2>Going off the deep end</h2>
+        <div class="imgcite">
+        <img src="img/off_the_deep_end.jpg" height=400>
+        <cite>
+                By <a href="">Kirk Weddle</a>
+                [Copyright, Geffen Records],
+                <a href="https://en.wikipedia.org/wiki/Nevermind#/media/File:NirvanaNevermindalbumcover.jpg
+                ">via Wikipedia</a>
+
+        </cite>
+    </div>
+    </section>
+
+	<section>
+		<h2>How can we get more people involved?</h2>
+	    <p class="fragment">Methods in data science are rapidly changing</p>
+        <p class="fragment">Learning often requires substantial hands-on experience</p>
+    </section>
+
+    <section>
+        <div class="row">
+            <div class="imgcite two-col fragment">
+                <img src="img/carpentries-logo.png">
+                <img class="fragment" src="img/swc-logo.png" height="133px" width="200px">
+                <img class="fragment" src="img/dc-logo.png" height="133px" width="200px">
+            </div>
+        <div class="imgcite two-col fragment">
+            <p>Science hackathons</p>
+            <p><a href="http://brainhack.org">http://brainhack.org</a></p>
+            <div class="cite" style="position: absolute; left:600px">
+                    <a href="https://gigascience.biomedcentral.com/articles/10.1186/s13742-016-0121-x"> Craddock et al. (2016) Gigascience</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Hack weeks</h2>
+        <p class="fragment">Week-long events</p>
+        <p class="fragment">Combination of learning and project work</p>
+        <div class="fragment">
+        <p>A fine balance of pedagogy and hacking</a></p>
+        <img src="img/HackSpectrum.png" height="300">
+        </div>
+        <div class="cite" style="position: absolute; left:450px">
+                <a href="https://www.pnas.org/content/115/36/8872"> Huppenkothen, Arendt, Hogg, Ram, Vanderplas & Rokem (2018) PNAS</a>
+        </div>
+    </section>
+
+	<section>
+        <img src="img/neurohack-collage.png" height="400">
+        <div class="fragment">
+        <a href="http://neurohackademy.org/">NeuroHackademy: A Summer Institute in Neuroscience and Data Science</a>
+        <img src="img/nimh-logo.gif" height="50px">
+        </div>
+        <div class="cite" style="position: absolute; left:450px">
+                <a href="https://www.pnas.org/content/115/36/8872"> Huppenkothen, Arendt, Hogg, Ram, Vanderplas & Rokem (2018) PNAS</a>
+        </div>
+
+    </section>
+
+	<section>
+
+		<h2> Thanks! </h2>
+		<div style="position: absolute; left:100px; top:100px;" align="left">
+			Sa Xiao
+			<br>
+			Aaron Lee
+			<br>
+			Anisha Keshavan
+			<br>
+			Jason Yeatman
+			<br>
+			Adam Richie-Halford
+			<br>
+			Josh Smith
+			<br>
+			Noah Simon
+			<br>
+			Eleftherios Garyfallidis (IU)
+			<br>
+			Tal Yarkoni (UT Austin)
+			<br>
+			Daniela Huppenkothen
+			<br>
+            Anthony Arendt
+		</div>
+
+		<div style="position: absolute; left:500px; top:80px;">
+			<img src="img/msdse-sponsors.png" height="50px">
+			<br>
+			<img src="img/nimh-logo.gif" height="50px">
+			<img src="img/nibib-logo.png" height="50px">
+			<br>
+			<img src="img/BMGF-logo.png" height="100px">
+			<img src="img/nsf-logo.jpeg" height="100px">
+			<br>
+			<img src="img/eScience.png" height="80px">
+		</div>
+
+	</section>
+
+	<section>
+
+			<div style="position:absolute; left: 200px; top:-120px;">
+			<h2>Contact information</h2>
+			</div>
+			<div style="position:absolute; left: 220px; top:-50px;">
+			<img src="img/globe-xxl.png" width="100px;" >
+			<div style="position:absolute; left: 120px; top:40px;">http://arokem.org
+			</div>
+			</div>
+			<div style="position:absolute; left: 220px; top:70px;">
+			<img src="img/email-11-xxl.png" width="100px;" >
+			<div style="position:absolute; left: 120px; top:40px;">arokem@gmail.com
+			</div>
+			</div>
+			<div style="position:absolute; left: 220px; top:190px;">
+			<img src="img/twitter-xxl.png" width="100px;" >
+			<div style="position:absolute; left: 120px; top:40px;">@arokem
+			</div>
+			</div>
+			<div style="position:absolute; left: 220px; top:310px;">
+			<img src="img/github-6-xxl.png" width="100px;" >
+			<div style="position:absolute; left: 120px; top:40px;">github.com/arokem
+			</div>
+			</div>
+
+	</section>
+
+	</div>
+	</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				history: true,
+				controls: false,
+				progress: true,
+				center: true,
+
+				transition: 'fade', // none/fade/slide/convex/concave/zoom
+
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+
+	</body>
+</html>
